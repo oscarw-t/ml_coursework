@@ -3,10 +3,10 @@ from sklearn.linear_model import Lasso
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 
-df = pd.read_csv('data/training_data_encoded.csv')
+ds = pd.read_csv('data/training_data_encoded.csv')
 
-X = df.drop(columns=['outcome'])
-y = df['outcome']
+X = ds.drop(columns=['outcome'])
+y = ds['outcome']
 
 X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
 
