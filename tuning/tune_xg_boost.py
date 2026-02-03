@@ -16,7 +16,9 @@ def xg_boost(hyperparams, X_train, y_train, X_val, y_val):
 
 
 if __name__ == "__main__":
-    ds = pd.read_csv('data/training_data_encoded.csv')
+
+
+    ds = pd.read_csv('data/training_data_onehotencoded.csv')
 
     #log transform price CHANGE
     if 'price' in ds.columns:
@@ -252,11 +254,28 @@ if __name__ == "__main__":
         }
     ]
 
+    current_best_hyperparamters = [
+        {
+        "n_estimators": 3000, 
+        "learning_rate": 0.01, 
+        "max_depth": 4, 
+        "subsample": 0.7, 
+        "colsample_bytree": 0.7, 
+        "min_child_weight": 20,
+        "random_state": 42
+        }
+    
+    ]
+
 
     bestr2 = 0
     besthypers = []
-    for hyperparams in hyperparameters:
+
+
+    #use hyperparameters or current_best_hyperparameters
+    for hyperparams in current_best_hyperparamters:
         r2 = xg_boost(hyperparams, X_train, y_train, X_val, y_val)
+        print("hyperparam set tested")
         if r2>bestr2:
             bestr2=r2
             besthypers=hyperparams

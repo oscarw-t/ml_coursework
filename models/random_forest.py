@@ -37,11 +37,10 @@ r2 = r2_score(y_val, y_pred)
 print(f"R² Score: {r2:.4f}")
 
 
-"""
+
 for hyperparameter_set in hyperparameters:
     model = RandomForestRegressor(random_state=42, **hyperparameter_set)
     model.fit(X_train, y_train)
     y_pred = model.predict(X_val)
     r2 = r2_score(y_val, y_pred)
     print(f"{hyperparameter_set}: R² = {r2:.4f}")
-"""
