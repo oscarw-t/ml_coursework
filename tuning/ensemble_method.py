@@ -6,17 +6,22 @@ from sklearn.metrics import r2_score
 
 
 
-xg_boost_hyperparamters ={
-    "n_estimators": 3000, 
-    "learning_rate": 0.01, 
-    "max_depth": 4, 
-    "subsample": 0.7, 
-    "colsample_bytree": 0.7, 
-    "min_child_weight": 20,
-    "random_state": 42
-    }
+xg_boost_hyperparamters =        {
+            "n_estimators": 2000, 
+            "learning_rate": 0.01, 
+            "max_depth": 2, 
+            "subsample": 0.4, 
+            "colsample_bytree": 0.4, 
+            "min_child_weight": 150,
+            "reg_alpha": 2.0,
+            "reg_lambda": 10.0,
+            "random_state": 42
+        }
 
-random_forest_hyperparameters = {'n_estimators': 200, 'max_depth': 10, 'random_state': 42}
+random_forest_hyperparameters = {'n_estimators': 200,
+                                 'random_state': 42,
+                                 'max_depth': 10
+                                }
 
 
 
@@ -42,18 +47,24 @@ def random_forest(hyperparams, X_train, y_train, X_val):
 if __name__ == "__main__":
     
     ds = pd.read_csv('data/training_data_onehotencoded.csv')
-
+            
     X = ds.drop(columns=['outcome'])
     y = ds['outcome']
 
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.1, random_state=42)
 
-    rf_y = random_forest(random_forest_hyperparameters, X_train, y_train, X_val)
-    xgb_y = xg_boost(xg_boost_hyperparamters, X_train, y_train, X_val)
 
-    y_hat = (rf_y + xgb_y) / 2
+    count = 0
+    while count < 1:
 
+        rf_y = random_forest(random_forest_hyperparameters, X_train, y_train, X_val)
+        xgb_y = xg_boost(xg_boost_hyperparamters, X_train, y_train, X_val)
 
-    print(r2_score(y_val, xgb_y))
-    print(r2_score(y_val, rf_y))
-    print(r2_score(y_val, y_hat))
+        #y_hat = (rf_y + xgb_y) / 2
+        y_hat = (0.1 * rf_y + 0.9 * xgb_y)
+
+        print(r2_score(y_val, xgb_y))
+        print(r2_score(y_val, rf_y))
+        print(f"together :   {r2_score(y_val, y_hat)}")
+
+        count+=1 
