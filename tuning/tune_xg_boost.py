@@ -44,7 +44,7 @@ if __name__ == "__main__":
             "min_child_weight": 150,
             "reg_alpha": 2.0,
             "reg_lambda": 10.0,
-            "random_state": 42
+            #"random_state": 42
         }
         ]
 
