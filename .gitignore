@@ -1,6 +1,5 @@
 *.csv
 *.png
-*.txt
 instructions.txt
 .venv/
 *.docx
