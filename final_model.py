@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import r2_score
 import numpy as np
 
-
+#final script uses saved xg_boost model
 
 
 def predict(inputs):
@@ -24,7 +24,7 @@ def predict_test_outcome():
 
     predictions = predict(test_data)
     
-    pd.DataFrame({'outcome': predictions}).to_csv('predictions_1.csv', index=False)
+    pd.DataFrame({'yhat': predictions}).to_csv('predictions_1.csv', index=False)
 
 
 if __name__ == "__main__":
